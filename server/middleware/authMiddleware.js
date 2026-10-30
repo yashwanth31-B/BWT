@@ -14,10 +14,20 @@ const protect = async (req, res, next) => {
       token = req.headers.authorization.split(' ')[1];
 
       // Verify token
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const decoded = jwt.verify(token, process.env.JWT_SECRET || 'super_secret_hackathon_jwt_key_change_in_production');
 
-      // Fetch user from DB and attach to request (excluding password)
-      req.user = await User.findById(decoded.id).select('-password');
+      // Fetch user from DB or demo map
+      if (require('mongoose').connection.readyState === 1) {
+        req.user = await User.findById(decoded.id).select('-password');
+      } else {
+        const { DEMO_USERS_MAP } = require('../controllers/authController');
+        req.user = Object.values(DEMO_USERS_MAP).find((u) => u._id === decoded.id) || {
+          _id: decoded.id,
+          role: decoded.role,
+          name: 'User',
+          organizationName: 'Organization',
+        };
+      }
 
       if (!req.user) {
         return res.status(401).json({

@@ -2,7 +2,8 @@
 
 A responsive, full-stack MERN web application built for student hackathons that connects restaurants, hotels, caterers, and food providers (Donors) with charitable organizations and NGOs (Recipients) to eliminate food waste and fight hunger.
 
-- 🌐 **Live Vercel Production**: [https://client-wine-tau.vercel.app](https://client-wine-tau.vercel.app)
+- 🌐 **Live Frontend Application**: [https://client-wine-tau.vercel.app](https://client-wine-tau.vercel.app)
+- ⚙️ **Live Backend API**: [https://server-ten-smoky-53.vercel.app/api](https://server-ten-smoky-53.vercel.app/api)
 - 📦 **GitHub Repository**: [https://github.com/yashwanth31-B/BWT.git](https://github.com/yashwanth31-B/BWT.git)
 
 ---

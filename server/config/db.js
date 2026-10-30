@@ -4,9 +4,19 @@ let mongoMemoryServer = null;
 
 const connectDB = async () => {
   try {
+    if (mongoose.connection.readyState >= 1) {
+      return;
+    }
+
     if (process.env.MONGODB_URI && process.env.MONGODB_URI.startsWith('mongodb')) {
       const conn = await mongoose.connect(process.env.MONGODB_URI);
       console.log(`[Database] Connected to MongoDB Atlas: ${conn.connection.host}`);
+      return;
+    }
+
+    // On Vercel serverless without Atlas URI, avoid running MongoMemoryServer
+    if (process.env.VERCEL) {
+      console.warn('[Database] MONGODB_URI is not set in Vercel environment. Running in resilient stateless mode.');
       return;
     }
 
@@ -24,7 +34,9 @@ const connectDB = async () => {
     await seedData(false);
   } catch (error) {
     console.error(`[Database Error] ${error.message}`);
-    process.exit(1);
+    if (!process.env.VERCEL) {
+      process.exit(1);
+    }
   }
 };
 

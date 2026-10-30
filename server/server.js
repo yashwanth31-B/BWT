@@ -21,7 +21,11 @@ const app = express();
 // Middleware
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin: [
+      'http://localhost:5173',
+      'https://client-wine-tau.vercel.app',
+      /\.vercel\.app$/,
+    ],
     credentials: true,
   })
 );
@@ -56,7 +60,7 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
-if (process.env.NODE_ENV !== 'test') {
+if (!process.env.VERCEL && process.env.NODE_ENV !== 'test') {
   app.listen(PORT, () => {
     console.log(`[Server] Food Donation API running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode`);
   });

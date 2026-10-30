@@ -23,7 +23,11 @@ const Login = () => {
       setLoading(true);
       setError('');
       const result = await login(email, password);
-      redirectByRole(result.user.role);
+      if (result?.user?.role) {
+        redirectByRole(result.user.role);
+      } else {
+        redirectByRole('donor');
+      }
     } catch (err) {
       setError(err.message || 'Login failed. Please verify credentials.');
     } finally {
@@ -45,7 +49,8 @@ const Login = () => {
       setLoading(true);
       setError('');
       const res = await quickDemoLogin(role);
-      redirectByRole(res.user.role);
+      const targetRole = res?.user?.role || res?.role || role;
+      redirectByRole(targetRole);
     } catch (err) {
       setError(err.message || 'Demo login failed');
     } finally {
