@@ -2,6 +2,9 @@
 
 > **Problem Statement**: Build a web application connecting restaurants, hotels, and caterers with charitable NGOs to reduce food wastage and streamline surplus food redistribution.
 
+- 🌐 **Live Demo URL**: [https://client-wine-tau.vercel.app](https://client-wine-tau.vercel.app)
+- 📦 **GitHub Repository**: [https://github.com/yashwanth31-B/BWT.git](https://github.com/yashwanth31-B/BWT.git)
+
 ---
 
 ## 1. Project Overview & Technology Stack
